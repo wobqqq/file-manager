@@ -12,30 +12,22 @@ const cpuHandler = (item) => {
   return item;
 }
 
-const getResult = (argumentName) => {
-  switch (argumentName) {
-    case EOL_ARGUMENT:
-      return JSON.stringify(EOL);
-    case CPUS_ARGUMENT:
-      return cpus().map(item => cpuHandler(item));
-    case HOMEDIR_ARGUMENT:
-      const {homedir} = userInfo();
+const getData = () => {
+  const {username, homedir} = userInfo();
+  const data = {};
 
-      return homedir;
-    case USERNAME_ARGUMENT:
-      const {username} = userInfo();
+  data[EOL_ARGUMENT] = JSON.stringify(EOL);
+  data[CPUS_ARGUMENT] = cpus().map(item => cpuHandler(item));
+  data[HOMEDIR_ARGUMENT] = homedir;
+  data[USERNAME_ARGUMENT] = username;
+  data[ARCHITECTURE_ARGUMENT] = process.arch;
 
-      return username;
-    case ARCHITECTURE_ARGUMENT:
-      return process.arch;
-    default:
-      return 'Operation not found';
-  }
+  return data;
 }
 
-const os = async args => {
-  const argumentName = args.shift();
-  const result = getResult(argumentName);
+const os = async ([argumentName]) => {
+  const data = getData();
+  const result = data[argumentName];
 
   console.table(result);
 };

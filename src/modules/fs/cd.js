@@ -1,7 +1,7 @@
 import {getPath} from "../../helpers/fileSystemHelper.js";
 
-const cd = async args => {
-  const dirPath = getPath(args.shift());
+const cd = async ([inputDirPath]) => {
+  const dirPath = getPath(inputDirPath);
 
   process.chdir(dirPath);
 };

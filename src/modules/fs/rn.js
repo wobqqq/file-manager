@@ -1,9 +1,9 @@
 import {rename as renameFile} from 'fs/promises';
 import {getPath} from "../../helpers/fileSystemHelper.js";
 
-const rn = async args => {
-  const oldFilePath = getPath(args.shift());
-  const newFilePath = getPath(args.shift());
+const rn = async ([inputOldFilePath, inputNewFilePath]) => {
+  const oldFilePath = getPath(inputOldFilePath);
+  const newFilePath = getPath(inputNewFilePath);
 
   await renameFile(oldFilePath, newFilePath);
 };

@@ -2,8 +2,8 @@ import {pipeline} from "stream/promises";
 import {createReadStream} from "fs";
 import {getPath} from "../../helpers/fileSystemHelper.js";
 
-const cat = async args => {
-  const filePath = getPath(args.shift());
+const cat = async ([inputFilePath]) => {
+  const filePath = getPath(inputFilePath);
 
   await pipeline(
     createReadStream(filePath),

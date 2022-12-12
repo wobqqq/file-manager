@@ -1,8 +1,8 @@
 import {writeFile} from 'fs/promises';
 import {getPath} from "../../helpers/fileSystemHelper.js";
 
-const add = async args => {
-  const filePath = getPath(args.shift());
+const add = async ([inputFilePath]) => {
+  const filePath = getPath(inputFilePath);
 
   await writeFile(filePath, '');
 };

@@ -4,9 +4,9 @@ import {createReadStream, createWriteStream} from "fs";
 import {getPath} from "../../helpers/fileSystemHelper.js";
 import {parse, join} from 'path';
 
-const compress = async (args) => {
-  const filePath = getPath(args.shift());
-  const destinationPath = getPath(args.shift());
+const compress = async ([inputFilePath, inputDestinationPath]) => {
+  const filePath = getPath(inputFilePath);
+  const destinationPath = getPath(inputDestinationPath);
   const {base} = parse(filePath);
   const archivePath = join(destinationPath, `${base}.br`);
 
