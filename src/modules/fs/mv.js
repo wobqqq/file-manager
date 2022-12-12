@@ -3,6 +3,7 @@ import {createReadStream, createWriteStream} from "fs";
 import {getPath} from "../../helpers/fileSystemHelper.js";
 import {join, parse} from "path";
 import {rm as remove} from 'fs/promises';
+import {printOperationFailedMessage} from "../../helpers/messageHelper.js";
 
 const mv = async ([inputOldFilePath, inputDestinationPath]) => {
   const oldFilePath = getPath(inputOldFilePath);
@@ -10,11 +11,15 @@ const mv = async ([inputOldFilePath, inputDestinationPath]) => {
   const {base} = parse(oldFilePath);
   const newFilePath = join(destinationPath, base);
 
-  await pipeline(
-    createReadStream(oldFilePath),
-    createWriteStream(newFilePath)
-  );
-  await remove(oldFilePath);
+  try {
+    await pipeline(
+      createReadStream(oldFilePath),
+      createWriteStream(newFilePath)
+    );
+    await remove(oldFilePath);
+  } catch (e) {
+    printOperationFailedMessage();
+  }
 };
 
 export default mv;

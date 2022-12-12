@@ -1,4 +1,5 @@
 import {cpus, EOL, userInfo} from 'os'
+import {printOperationFailedMessage} from "../../helpers/messageHelper.js";
 
 const EOL_ARGUMENT = '--EOL';
 const CPUS_ARGUMENT = '--cpus';
@@ -26,10 +27,14 @@ const getData = () => {
 }
 
 const os = async ([argumentName]) => {
-  const data = getData();
-  const result = data[argumentName];
+  try {
+    const data = getData();
+    const result = data[argumentName];
 
-  console.table(result);
+    console.table(result);
+  } catch (e) {
+    printOperationFailedMessage();
+  }
 };
 
 export default os;

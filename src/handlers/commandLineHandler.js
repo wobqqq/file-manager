@@ -1,10 +1,6 @@
 import {EOL} from "os";
 import validate from "../validators/commandLineValidator.js";
-import {
-  printCurrentDirectoryMessage,
-  printInvalidInputMessage,
-  printOperationFailedMessage
-} from "../helpers/messageHelper.js";
+import {printCurrentDirectoryMessage, printInvalidInputMessage} from "../helpers/messageHelper.js";
 import * as commands from "../modules/index.js";
 
 const EXIT_COMMAND_NAME = '.exit';
@@ -35,10 +31,6 @@ export const handler = async (line, commandLineInterface) => {
     return;
   }
 
-  try {
-    await commands[commandName](inputData);
-    printCurrentDirectoryMessage();
-  } catch (e) {
-    printOperationFailedMessage()
-  }
+  await commands[commandName](inputData);
+  printCurrentDirectoryMessage();
 };
