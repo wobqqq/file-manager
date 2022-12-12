@@ -8,8 +8,7 @@ const argumentHandler = (item) => {
   const argument = item
     .replace('--', '')
     .split('=');
-  const key = argument.shift();
-  const value = argument.shift();
+  const [key, value] = argument;
 
   if (value) {
     return [key, value];
