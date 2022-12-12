@@ -6,10 +6,9 @@ import {printOperationFailedMessage} from "../../helpers/messageHelper.js";
 
 const stdout = () => {
   const options = {
-    decodeStrings: false,
-    write(chunk, _, callback) {
-      console.log(chunk);
-      callback();
+    write(chunk) {
+      const result = chunk.toString();
+      console.log(result);
     },
   }
 
@@ -21,7 +20,7 @@ const cat = async ([inputFilePath]) => {
 
   try {
     await pipeline(
-      createReadStream(filePath, {encoding: 'UTF-8'}),
+      createReadStream(filePath),
       stdout(),
     );
   } catch (e) {
