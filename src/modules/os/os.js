@@ -12,28 +12,36 @@ const cpuHandler = (item) => {
   return item;
 }
 
-const getData = () => {
-  const data = {};
-  const {username, homedir} = userInfo();
+const getResult = (argumentName) => {
+  switch (argumentName) {
+    case EOL_ARGUMENT:
+      return JSON.stringify(EOL);
+    case CPUS_ARGUMENT:
+      return cpus().map(item => cpuHandler(item));
+    case HOMEDIR_ARGUMENT:
+      const {homedir} = userInfo();
 
-  data[EOL_ARGUMENT] = JSON.stringify(EOL);
-  data[CPUS_ARGUMENT] = cpus().map(item => cpuHandler(item));
-  data[HOMEDIR_ARGUMENT] = homedir;
-  data[USERNAME_ARGUMENT] = username;
-  data[ARCHITECTURE_ARGUMENT] = process.arch;
+      return homedir;
+    case USERNAME_ARGUMENT:
+      const {username} = userInfo();
 
-  return data;
+      return username;
+    case ARCHITECTURE_ARGUMENT:
+      return process.arch;
+    default:
+      return 'Operation not found';
+  }
 }
 
 const os = async args => {
   const argumentName = args.shift();
-  const data = getData();
-  const result = data[argumentName];
+  const result = getResult(argumentName);
 
   console.table(result);
 };
 
 export default os;
+
 export const AVAILABLE_ARGUMENTS = [
   EOL_ARGUMENT,
   CPUS_ARGUMENT,

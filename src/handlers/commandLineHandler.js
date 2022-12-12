@@ -1,5 +1,5 @@
 import {EOL} from "os";
-import validate from "../validators/argumentValidator.js";
+import validate from "../validators/commandLineValidator.js";
 import {
   printCurrentDirectoryMessage,
   printInvalidInputMessage,
