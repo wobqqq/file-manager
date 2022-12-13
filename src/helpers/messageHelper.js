@@ -6,12 +6,12 @@ export const printOperationFailedMessage = () => {
   console.error('Operation failed');
 };
 
-export const printWelcomeMessage = (userName) => {
-  console.log(`Welcome to the File Manager, ${userName}!`);
+export const printWelcomeMessage = (username) => {
+  console.log(`Welcome to the File Manager, ${username}!`);
 };
 
-export const printGoodbyeMessage = (userName) => {
-  console.log(`Thank you for using File Manager, ${userName}, goodbye!`);
+export const printGoodbyeMessage = (username) => {
+  console.log(`Thank you for using File Manager, ${username}, goodbye!`);
 };
 
 export const printCurrentDirectoryMessage = () => {

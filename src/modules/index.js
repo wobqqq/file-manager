@@ -11,6 +11,7 @@ import compress from './zip/compress.js'
 import decompress from './zip/decompress.js'
 import hash from './hash/hash.js'
 import os from './os/os.js'
+import exit from './cli/exit.js'
 
 export {
   ls,
@@ -26,4 +27,5 @@ export {
   decompress,
   hash,
   os,
+  exit,
 }

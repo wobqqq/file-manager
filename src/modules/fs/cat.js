@@ -6,9 +6,10 @@ import {printOperationFailedMessage} from "../../helpers/messageHelper.js";
 
 const stdout = () => {
   const options = {
-    write(chunk) {
+    write(chunk, encoding, callback) {
       const result = chunk.toString();
       console.log(result);
+      callback();
     },
   }
 

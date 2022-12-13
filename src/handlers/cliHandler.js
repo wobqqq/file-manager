@@ -2,8 +2,7 @@ import {EOL} from "os";
 import validate from "../validators/commandLineValidator.js";
 import {printCurrentDirectoryMessage, printInvalidInputMessage} from "../helpers/messageHelper.js";
 import * as commands from "../modules/index.js";
-
-const EXIT_COMMAND_NAME = '.exit';
+import getCommand from "../helpers/commandHelper.js";
 
 const parseCommandLine = (commandLine) => {
   return commandLine
@@ -14,10 +13,11 @@ const parseCommandLine = (commandLine) => {
     .split(' ');
 };
 
-export const handler = async (line, commandLineInterface) => {
+export const handler = async (line) => {
   const inputData = parseCommandLine(line);
-  const commandName = inputData.shift();
-  const isNotValidInputData = !validate(commandName, inputData);
+  const inputCommandName = inputData.shift();
+  const command = getCommand(inputCommandName);
+  const isNotValidInputData = !validate(command, inputData);
 
   if (isNotValidInputData) {
     printInvalidInputMessage();
@@ -25,12 +25,6 @@ export const handler = async (line, commandLineInterface) => {
     return;
   }
 
-  if (commandName === EXIT_COMMAND_NAME) {
-    commandLineInterface.close();
-
-    return;
-  }
-
-  await commands[commandName](inputData);
+  await commands[command.name](inputData);
   printCurrentDirectoryMessage();
 };

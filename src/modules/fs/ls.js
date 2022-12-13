@@ -7,11 +7,24 @@ const fileHandler = (item) => {
     name: item.name,
     type: item.isFile() ? 'file' : 'directory',
   };
-}
+};
 
 const sortHandler = (itemA, itemB) => {
-  return itemA.type > itemB.type ? 1 : -1;
-}
+  if (itemB.type < itemA.type) {
+    return 1;
+  }
+  if (itemB.type > itemA.type) {
+    return -1;
+  }
+  if (itemA.name < itemB.name) {
+    return -1;
+  }
+  if (itemA.name > itemB.name) {
+    return 1;
+  }
+
+  return 0;
+};
 
 const ls = async ([inputDirPath]) => {
   const dirPath = getPath(inputDirPath);
